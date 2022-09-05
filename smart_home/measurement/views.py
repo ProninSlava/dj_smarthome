@@ -2,12 +2,12 @@
 # TODO: ListCreateAPIView, RetrieveUpdateAPIView, CreateAPIView
 
 from rest_framework.decorators import api_view
-from rest_framework.generics import ListCreateAPIView, RetrieveUpdateAPIView, RetrieveAPIView, get_object_or_404
+from rest_framework.generics import ListCreateAPIView, RetrieveUpdateAPIView, RetrieveAPIView
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from .models import Sensor, Measurement
-from .serializers import SensorSerializer, MeasurementSerializer, TempSensSerializer, SensorDetailSerializer
+from .serializers import SensorSerializer, MeasurementSerializer,  SensorDetailSerializer
 
 
 # Создать датчик. Указываются название и описание датчика.
@@ -22,13 +22,13 @@ class SensUpdateView(RetrieveUpdateAPIView):
     serializer_class = SensorSerializer
 
 # Добавить измерение. Указываются ID датчика и температура.
-class TempCreateView(RetrieveUpdateAPIView):
-    queryset = Sensor.objects.all()
-    serializer_class = TempSensSerializer
+class MeasurementCreateView(ListCreateAPIView):
+    queryset = Measurement.objects.all()
+    serializer_class = MeasurementSerializer
 
 
 # Получить информацию по конкретному датчику.
-class SensView(ListCreateAPIView):
+class SensView(RetrieveUpdateAPIView):
     queryset = Sensor.objects.all()
     serializer_class = SensorDetailSerializer
 
